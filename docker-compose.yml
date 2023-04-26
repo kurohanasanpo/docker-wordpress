@@ -1,0 +1,117 @@
+version: '3.7'
+
+services:
+
+#
+# apache
+#-----------------------------------------------
+  apache:
+    build: ./apache
+    container_name: apache
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./public_html:/var/www/html
+      - ./apache/private:/etc/ssl/private
+
+#
+# php-fpm
+#-----------------------------------------------
+  php:
+    build: ./php
+    container_name: php
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 9000
+    volumes:
+      - ./public_html:/var/www/html
+      - ./tools:/var/www/tools
+
+#
+# mysql
+#-----------------------------------------------
+  mysql:
+    build: ./mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: dbadmin123
+      TZ: Asia/Tokyo
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+#
+# phpmyadmin
+#-----------------------------------------------
+  phpmyadmin:
+    build: ./phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=dbadmin123
+      - PMA_ARBITRARY=1
+    ports:
+      - 8080:80
+
+#
+# mysql_backup
+#-----------------------------------------------
+  mysql_backup:
+    build: ./mysql_backup
+    container_name: mysql_backup
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./mysql_backup/backup:/home/root/backup
+      - ./mysql_backup/script:/home/root/script
+
+#
+# mailcatcher
+#-----------------------------------------------
+  mailcatcher:
+    image: schickling/mailcatcher
+    container_name: mailcatcher
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 1081:1080
+      - 1026:1025
+
+#
+# dnsmasq
+#-----------------------------------------------
+  dnsmasq:
+    image: 4km3/dnsmasq
+    container_name: dnsmasq
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 53:53/udp
+      - 53:53/tcp
+    volumes:
+      - ./dnsmasq/dnsmasq.d:/etc/dnsmasq.d
+    dns:
+      - 8.8.8.8
+      - 127.0.0.1
+    cap_add:
+      - NET_ADMIN
+
+#
+# wordmove
+#-----------------------------------------------
+#  wordmove:
+#    build: ./wordmove
+#    container_name: wordmove
+#    environment:
+#      TZ: Asia/Tokyo
+#    volumes:
+#      - ./public_html:/var/www/html
+#      - ./tools:/var/www/tools
+#      - ~/.ssh:/root/.ssh:ro
+#    tty: true

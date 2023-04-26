@@ -1,0 +1,4 @@
+openssl genrsa -out server.key 2048
+openssl req -out server.csr -key server.key -new
+openssl x509 -req -days 365000 -signkey server.key -in server.csr -out server.crt -extfile san.txt
+
