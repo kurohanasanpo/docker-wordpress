@@ -1,1 +1,1 @@
-subjectAltName = DNS:*.local.test, DNS:local.test
+subjectAltName = DNS:*.wp.test, DNS:wp.test

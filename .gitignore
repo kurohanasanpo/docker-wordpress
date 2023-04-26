@@ -1,6 +1,5 @@
 mysql_data/*
 mysql_backup/backup/*
 public_html/*
-tools
 .DS_Store
 .vscode
