@@ -14,13 +14,13 @@ docker exec php bash /var/www/tools/setup-wp.sh sample
 ```
 127.0.0.1 sample.wp.test
 ```
-*簡易DNSサーバ（dnsmasqコンテナ）も起動しているので、それを使ってもOK。
-*dnsmasqを使えば同一WiFiに接続したスマホからアクセスも可能。その場合はdnsmasqでのIPアドレス定義を「127.0.0.1」ではなく端末のIPアドレスに変更する。
+- 簡易DNSサーバ（dnsmasqコンテナ）も起動しているので、それを使ってもOK。
+- dnsmasqを使えば同一WiFiに接続したスマホからアクセスも可能。その場合はdnsmasqでのIPアドレス定義を「127.0.0.1」ではなく端末のIPアドレスに変更する。
 
-## サンプルサイトにアクセスし、WordPressサイトが表示されることを確認する
+## サンプルサイトにアクセスする
 ```
 https://sample.wp.test
 ```
-
+WordPressのサイトが表示される。
 
 
