@@ -1,6 +1,6 @@
 **1. 起動**
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 **2. サンプルサイトの立ち上げ**
